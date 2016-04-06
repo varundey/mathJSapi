@@ -1,11 +1,20 @@
 #!/usr/bin/env python
-import urllib, requests
-from bottle import route, run
+import urllib, subprocess
+from w2n import word2num
 
-@route('/<query>', method="GET")
-def index(query=""):
-	math = "http://api.mathjs.org/v1/?expr="+urllib.quote(query)
-	ans = requests.get(math).content
-	return ans
+def check(query):
+	try:
+		num =  word2num(query)
+		return num
+	except:
+		return query
+		
 
-run(host='localhost', port=8080,debug=True)
+
+
+math  = check(raw_input())
+
+a = subprocess.Popen(["nodejs","js_assets/server.js",math],stdout=subprocess.PIPE)
+a.wait()
+ans = a.stdout.read().strip()
+print ans
