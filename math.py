@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import urllib, subprocess
-from w2n import word2num
+from py_assets.w2n import word2num
 
 def check(query):
 	try:
